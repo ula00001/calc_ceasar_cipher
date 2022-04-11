@@ -14,8 +14,8 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 // import './bar.scss';
 
-const pages = ['Calc', 'Ceasar'];
-const navs = [{ Calc: '/' }, {Ceasar: '/ceasar'}];
+const pages = ['Calc', 'Ceasar', 'Like Enigma'];
+const navs = [{ Calc: '/' }, {Ceasar: '/ceasar'}, {'Like Enigma': '/likeenigma'}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Bar = () => {
