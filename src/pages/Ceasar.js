@@ -53,13 +53,14 @@ const Ceasar  = () => {
     let newStr = '';
     if (!msg || !num) return;
 
-    const message = msg.replace(/[^\sa-zа-яё0-9]/gi, '');
+    const message = msg.replace(/[^a-zа-яё0-9]/gi, '');
 
     for (let i = 0; i < message.length; i++) {
       let index =
         name === 'encrypt' ? contain(lang, enAlphabet, ruAlphabet).indexOf(message[i].toUpperCase()) + parseInt(num)
-          : contain(lang, enAlphabet, ruAlphabet).indexOf(result[i].toUpperCase()) - parseInt(num);
-
+          : contain(lang, enAlphabet, ruAlphabet).indexOf(result[i].toUpperCase()) - parseInt(num) ;
+      console.log(enAlphabet.indexOf(result[i]));
+      console.log(index);
       let isUpperCase = false;
 
       isUpperCase = message[i] === message[i].toUpperCase() && true;
