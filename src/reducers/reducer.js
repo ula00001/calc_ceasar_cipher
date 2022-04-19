@@ -7,8 +7,14 @@ const counter = (state = initialState, action) => {
         case "DEC":
             return {
                 ...state,
-                counter: state.counter - 1
-            };
+                counter: state.counter - 1,
+        };
+        case "SET":
+            console.log('SET');
+            return {
+                ...state,
+                counter: 5,
+        };
         default:
             return state;
     }

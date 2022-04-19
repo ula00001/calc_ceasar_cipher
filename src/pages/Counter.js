@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "@mui/material";
-import { dec } from '../actions/actions';
+import { dec, set } from '../actions/actions';
 
 let interval = null
 let myCounter = 0;
@@ -20,6 +20,8 @@ const Counter = () => {
 
   const startCountdown = () => {
     clearInterval(interval)
+    dispatch(set());
+
     interval = setInterval(() => {
       console.log("counter: ", myCounter);
       if (myCounter > 0) {
