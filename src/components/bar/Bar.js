@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { useNavigate, useParams, useLocation, NavLink} from "react-router-dom";
+import { useNavigate, useLocation, NavLink} from "react-router-dom";
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,15 +12,24 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import Basket from "../../pages/shop/Basket";
+import Favorites from "../../pages/shop/Favorites";
+import { makeStyles } from '@material-ui/core/styles';
+import { NoEncryption } from "@mui/icons-material";
+import { styled } from "@mui/material";
 // import './bar.scss';
 
-const pages = ['Calc', 'Ceasar', 'Like Enigma', 'Todo', 'Counter'];
-const navs = [{ Calc: '/' }, {Ceasar: '/ceasar'}, {'Like Enigma': '/likeenigma'}, {Todo: '/todo'}, {Counter: '/counter'}];
+
+const pages = ['Calc', 'Ceasar', 'Like Enigma', 'Todo', 'Counter', 'Shop'];
+const navs = [{ Calc: '/' }, {Ceasar: '/ceasar'}, {'Like Enigma': '/likeenigma'}, {Todo: '/todo'}, {Counter: '/counter'}, {Shop: '/shop'}];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Bar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const { pathname } = useLocation();
+  // const typographyStyle = useStyles();
+  // console.log(typographyStyle);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -93,9 +102,17 @@ const Bar = () => {
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'flex', md: 'flex' } }}
           >
-            MOVIES
+              {
+                pathname === '/' ? 'Calc'
+                  : pathname === '/ceasar' ? 'Ceasar'
+                    : pathname === '/likeenigma' ? 'Like Enigma'
+                      : pathname === '/todo' ? 'Todo'
+                        : pathname === '/counter' ? 'Counter'
+                          : pathname === '/shop' ? 'Shop'
+                            : null
+              }
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page, i) => (
@@ -119,6 +136,13 @@ const Bar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+              {pathname === '/shop' ?
+                <>
+                  <Favorites />
+                  <Basket />
+                </>
+                : null
+              }
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
@@ -146,6 +170,7 @@ const Bar = () => {
                 </MenuItem>
               ))}
             </Menu>
+
           </Box>
         </Toolbar>
       </Container>
