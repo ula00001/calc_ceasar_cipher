@@ -75,10 +75,10 @@ const ProductItem = ({ product, onAddToBasket, setFavorites, loadingStatus }) =>
           : (<Skeleton
             variant="rectangular"
             animation='wave'
-            width={224}
-            height={227}
             sx={{
-              margin: '0 auto'
+              margin: '0 auto',
+              width: { xs: '200px', sm: '224px' },
+              height:{xs: '200px', sm: '227px'}
             }}
           />)
 

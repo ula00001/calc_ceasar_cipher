@@ -16,7 +16,7 @@ import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
-
+import Skeleton from '@mui/material/Skeleton';
 
 // BAsKET ITEM STYLES
 const BasketItemWrapper = styled('div')`
@@ -166,6 +166,7 @@ const BasketItem = ({ product }) => {
 
 const Basket = () => {
   const products = useSelector((state) => state.shop.basket);
+  const loadingStatus = useSelector(state => state.shop.productsLoadingStatus);
 
   const [sidebar, setSidebar] = useState({
     right: false,
@@ -217,11 +218,23 @@ const Basket = () => {
 
   return (
     <>
-      <IconButton aria-label="cart" onClick={toggleDrawer(true)} sx={{ color: '#fff', marginRight: '30px' }}>
+      {
+        loadingStatus !== 'loading' ?
+        (<IconButton aria-label="cart" onClick={toggleDrawer(true)} sx={{ color: '#fff', marginRight: '30px' }}>
         <StyledBadge badgeContent={products.length} color="secondary">
           <ShoppingCartIcon sx={{fontSize: '40px'}}/>
         </StyledBadge>
-      </IconButton>
+          </IconButton>)
+        : ( <IconButton aria-label="cart" sx={{ color: '#fff', marginRight: '30px' }}>
+        < Skeleton
+            variant="circular"
+            animation='wave'
+            width={45}
+            height={45}
+            // sx={{ position: 'absolute', right: '75px'  }}
+        />
+        </IconButton>)
+      }
       <Drawer
         anchor={'right'}
         open={sidebar['right']}

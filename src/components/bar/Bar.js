@@ -14,10 +14,6 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import Basket from "../../pages/shop/Basket";
 import Favorites from "../../pages/shop/Favorites";
-import { makeStyles } from '@material-ui/core/styles';
-import { NoEncryption } from "@mui/icons-material";
-import { styled } from "@mui/material";
-// import './bar.scss';
 
 
 const pages = ['Calc', 'Ceasar', 'Like Enigma', 'Todo', 'Counter', 'Shop'];

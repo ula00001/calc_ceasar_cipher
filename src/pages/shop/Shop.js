@@ -18,6 +18,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
+import Skeleton from '@mui/material/Skeleton';
 
 
 const Selects = styled('div')`
@@ -31,7 +32,7 @@ const Shop = () => {
   const products = useSelector(state => state.shop.products);
   const loadingStatus = useSelector(state => state.shop.productsLoadingStatus);
   const allCategories = useSelector(state => state.shop.all_categories);
-  console.log(products);
+
   useEffect(() => {
     dispatch(fetchAllProducts());
     dispatch(fetchAllCategories());
@@ -58,7 +59,9 @@ const Shop = () => {
     <Container maxWidth='xl'>
       <Selects>
         <Box sx={{ minWidth: 120, margin: '15px 0px'}}>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          {
+            loadingStatus !== 'loading' ?
+           ( <FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-label" sx={{ fontSize: '14px' }}>SORT BY</InputLabel>
             <Select
               sx={{ height: '50px' }}
@@ -71,11 +74,24 @@ const Shop = () => {
               <MenuItem value={'asc'} sx={{fontSize: '14px'}}>ASC</MenuItem>
               <MenuItem value={'desc'} sx={{fontSize: '14px'}}>DESC</MenuItem>
             </Select>
-          </FormControl>
+              </FormControl>)
+              : (<Skeleton
+                  variant="rectangular"
+                  animation='wave'
+                  maxwidth={120}
+                  height={50}
+                  sx={{
+                    m: 1,
+                    borderRadius: '4px'
+                  }}
+                />)
+          }
         </Box>
 
         <Box sx={{ minWidth: 120, margin: '15px 0px' }}>
-          <FormControl sx={{ m: 1, minWidth: 120 }}>
+          {
+            loadingStatus !== 'loading' ?
+            (<FormControl sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="demo-simple-select-label" sx={{ fontSize: '14px' }}>CATEGORY</InputLabel>
             <Select
               sx={{ height: '50px' }}
@@ -92,7 +108,18 @@ const Shop = () => {
                 ))
               }
             </Select>
-          </FormControl>
+            </FormControl>)
+              : (<Skeleton
+                  variant="rectangular"
+                  animation='wave'
+                  maxwidth={120}
+                  height={50}
+                  sx={{
+                    m: 1,
+                    borderRadius: '4px'
+                  }}
+                />)
+          }
         </Box>
 
       </Selects>

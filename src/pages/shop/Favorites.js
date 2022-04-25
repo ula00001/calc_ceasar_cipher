@@ -9,6 +9,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import Box from '@mui/material/Box';
 import emptyFavorite from '../../images/no_favorites2.png'
+import Skeleton from '@mui/material/Skeleton';
 
 
 // Favorite ITEM STYLES
@@ -124,9 +125,9 @@ const FavoritesItem = ({ product }) => {
 
 const Favorites = () => {
   const [expanded, setExpanded] = useState(false);
+  const [open, setOpen] = useState(false);
   const products = useSelector((state) => state.shop.favorites);
-   const [open, setOpen] = useState(false);
-
+  const loadingStatus = useSelector(state => state.shop.productsLoadingStatus);
 
   const handleClick = () => {
     setOpen((prev) => !prev);
@@ -168,13 +169,23 @@ const Favorites = () => {
         position: 'relative',
 
       }}>
-        <FavoriteButtonWrapper onClick={handleClick}>
-          <IconButton aria-label="cart" onClick={() => setExpanded(!expanded)}>
-            <StyledBadge badgeContent={products.length} color="secondary">
-              <FavoriteIcon sx={{fontSize: '40px', color: '#fff'}}/>
-            </StyledBadge>
-          </IconButton>
-        </FavoriteButtonWrapper>
+        { loadingStatus !== 'loading' ?
+          (<FavoriteButtonWrapper onClick={handleClick}>
+            <IconButton aria-label="cart" onClick={() => setExpanded(!expanded)}>
+              <StyledBadge badgeContent={products.length} color="secondary">
+                <FavoriteIcon sx={{ fontSize: '40px', color: '#fff' }} />
+              </StyledBadge>
+            </IconButton>
+          </FavoriteButtonWrapper>)
+          : (
+            <Skeleton
+            variant="circular"
+            animation='wave'
+            width={45}
+            height={45}
+            sx={{ position: 'absolute', left: '-75px', top: '8px' }}
+            />)
+        }
         {open ? (
           <Box sx={[styles, { padding: '5px 10px', right: {xs:'-8px', sm: '0px', lg: '140px'}}]}>
             <FavoriteTitle><FavoriteIcon sx={{marginRight: '5px'}}/>Favorites</FavoriteTitle>
